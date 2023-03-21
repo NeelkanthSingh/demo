@@ -24,6 +24,7 @@ public class HomepageService {
 
         userDetails.setAge(userDetailsRequest.getAge());
         userDetails.setEmailId(userDetailsRequest.getEmail());
+        userDetails.setUserId(userDetailsRequest.getUserId());
         userDetails.setPhoneNumber(userDetailsRequest.getPhoneNumber());
         userDetails.setLastName(userDetailsRequest.getLastName());
         userDetails.setFirstName(userDetailsRequest.getFirstName());

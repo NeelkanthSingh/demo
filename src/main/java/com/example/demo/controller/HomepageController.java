@@ -6,10 +6,7 @@ import com.example.demo.service.HomepageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 // Controller class to store the user details
 @Controller
@@ -26,7 +23,7 @@ public class HomepageController {
     }
 
     @GetMapping("/homepage")
-    ResponseEntity<UserDetailsResponse> getUserDetails(String identifier){
+    ResponseEntity<UserDetailsResponse> getUserDetails(@RequestParam String identifier){
         return homepageService.getUserDetails(identifier);
     }
 
