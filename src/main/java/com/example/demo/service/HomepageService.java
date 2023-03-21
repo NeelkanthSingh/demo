@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 // Service class to save the user details
@@ -16,6 +18,9 @@ public class HomepageService {
 
     @Autowired
     public UserDetailsRepository userDetailsRepository;
+
+    // Create a logger instance
+    Logger logger = LoggerFactory.getLogger(HomepageService.class);
 
     // Method to save the user details
     public ResponseEntity<String> saveUserDetails(UserDetailsRequest userDetailsRequest){
@@ -30,6 +35,8 @@ public class HomepageService {
         userDetails.setFirstName(userDetailsRequest.getFirstName());
 
         userDetailsRepository.save(userDetails);
+
+        logger.debug("User Details are saved.");
         return ResponseEntity.status(200).body("User Details are saved");
     }
 
@@ -38,12 +45,15 @@ public class HomepageService {
         UserDetails userDetails;
 
         if(isValidEmail(identifier)){
+            logger.info("Identifier is an emailId");
             userDetails = userDetailsRepository.findByEmailId(identifier);
         }else{
+            logger.info("Identifier is a userID");
             userDetails = userDetailsRepository.findByUserId(identifier);
         }
 
         if(userDetails == null){
+            logger.debug("User is not found.");
             return ResponseEntity.notFound().build();
         }
 
