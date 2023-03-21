@@ -30,7 +30,7 @@ public class HomepageController {
 
     @GetMapping("/homepage")
     ResponseEntity<UserDetailsResponse> getUserDetails(@RequestParam String identifier){
-        logger.info("This is the Identifier " + identifier);
+        logger.info("This is the Identifier: " + identifier);
         return homepageService.getUserDetails(identifier);
     }
 
