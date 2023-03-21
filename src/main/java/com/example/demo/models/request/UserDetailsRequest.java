@@ -2,9 +2,9 @@ package com.example.demo.models.request;
 
 import lombok.*;
 
-// Model class to store the user details
+// Request Model class for user details
 @Getter@Setter@NoArgsConstructor@AllArgsConstructor@ToString
-public class HomepageRequest {
+public class UserDetailsRequest {
 
     private String firstName;
 
