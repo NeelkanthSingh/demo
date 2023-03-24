@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.UserDetails;
+import com.example.demo.security.UserDetails;
 import com.example.demo.models.request.UserDetailsRequest;
 import com.example.demo.models.response.UserDetailsResponse;
 import com.example.demo.repository.UserDetailsRepository;
