@@ -3,7 +3,7 @@ package com.example.demo.service;
 import com.example.demo.security.UserDetails;
 import com.example.demo.models.request.UserDetailsRequest;
 import com.example.demo.models.response.UserDetailsResponse;
-import com.example.demo.repository.UserDetailsRepository;
+import com.example.demo.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 public class HomepageService {
 
     @Autowired
-    public UserDetailsRepository userDetailsRepository;
+    public UserRepository userRepository;
 
     // Create a logger instance
     Logger logger = LoggerFactory.getLogger(HomepageService.class);
@@ -34,7 +34,7 @@ public class HomepageService {
         userDetails.setLastName(userDetailsRequest.getLastName());
         userDetails.setFirstName(userDetailsRequest.getFirstName());
 
-        userDetailsRepository.save(userDetails);
+        userRepository.save(userDetails);
 
         logger.debug("User Details are saved.");
         return ResponseEntity.status(200).body("User Details are saved");
@@ -46,10 +46,10 @@ public class HomepageService {
 
         if(isValidEmail(identifier)){
             logger.info("Identifier is an emailId");
-            userDetails = userDetailsRepository.findByEmailId(identifier);
+            userDetails = userRepository.findByEmailId(identifier);
         }else{
             logger.info("Identifier is a userID");
-            userDetails = userDetailsRepository.findByUserId(identifier);
+            userDetails = userRepository.findByUserId(identifier);
         }
 
         if(userDetails == null){
