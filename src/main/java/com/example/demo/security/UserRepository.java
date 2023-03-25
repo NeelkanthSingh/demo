@@ -8,7 +8,6 @@ import java.util.Optional;
 
 // Repository class to store the user details
 @Repository
-@Scope("prototype")
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findByEmail(String email);
