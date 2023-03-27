@@ -1,13 +1,13 @@
 #Postgresql properties
 spring:
   datasource:
-    url: jdbc:postgresql://192.168.1.5:5432/postgres
+    url: jdbc:postgresql://192.168.1.18:5432/postgres
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
