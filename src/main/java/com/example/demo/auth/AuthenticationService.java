@@ -1,21 +1,17 @@
 package com.example.demo.auth;
 
-import com.example.demo.config.JwtService;
-import com.example.demo.models.request.RegisterRequest;
-import com.example.demo.security.Role;
-import com.example.demo.security.User;
-import com.example.demo.models.request.AuthenticationRequest;
-import com.example.demo.models.response.AuthenticationResponse;
-import com.example.demo.security.UserRepository;
+import com.example.demo.service.JwtService;
+import com.example.demo.model.request.RegisterRequest;
+import com.example.demo.util.Role;
+import com.example.demo.entity.User;
+import com.example.demo.model.request.AuthenticationRequest;
+import com.example.demo.model.response.AuthenticationResponse;
+import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.apache.commons.validator.routines.EmailValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 // Service class to save the user details

@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.models.request.AuthenticationRequest;
-import com.example.demo.models.request.RegisterRequest;
-import com.example.demo.models.response.AuthenticationResponse;
+import com.example.demo.model.request.AuthenticationRequest;
+import com.example.demo.model.request.RegisterRequest;
+import com.example.demo.model.response.AuthenticationResponse;
 import com.example.demo.auth.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

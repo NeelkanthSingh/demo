@@ -1,6 +1,5 @@
-package com.example.demo.models.request;
+package com.example.demo.model.request;
 
-import com.example.demo.security.Role;
 import lombok.*;
 
 // Request Model class for user details

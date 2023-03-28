@@ -1,4 +1,4 @@
-package com.example.demo.models.response;
+package com.example.demo.model.response;
 
 import lombok.*;
 
