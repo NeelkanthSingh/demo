@@ -1,5 +1,5 @@
-#Postgresql properties
 spring:
+  #Postgresql properties
   datasource:
     url: jdbc:postgresql://192.168.1.18:5432/postgres
     username: postgres
@@ -7,10 +7,18 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
         format-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  #RabbitMQ
+  rabbitmq:
+    host: 192.168.1.18
+    port: 5672
+    username: guest
+    password: guest
+
