@@ -23,7 +23,15 @@ public class RabbitMQController {
     @GetMapping("/message")
     ResponseEntity<String> publishMessage(@RequestParam String message) throws IOException, TimeoutException {
         MessageObject messageObject = MessageObject.builder().id(1).message(message).build();
-        rabbitTemplate.convertAndSend("Mobile", messageObject);
+
+        // All three exchange are implemented below
+
+        /**
+        rabbitTemplate.convertAndSend("Direct-exchange","mobile", messageObject);
+        rabbitTemplate.convertAndSend("Fanout-exchange","mobile", messageObject);
+        rabbitTemplate.convertAndSend("Topic-exchange","mobile", messageObject);
+        **/
+
         return ResponseEntity.ok("Message Sent");
     }
 }
