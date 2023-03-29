@@ -49,10 +49,6 @@ public class RabbitMQController {
     ResponseEntity<String> publishHeaderExchangeMessage(@RequestParam String message) throws IOException, TimeoutException {
         MessageObject messageObject = MessageObject.builder().id(1).message(message).build();
 
-        // One way to convert MessageObject to byte array
-
-        /**
-
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutput out = new ObjectOutputStream(bos);
         out.writeObject(messageObject);
@@ -61,12 +57,6 @@ public class RabbitMQController {
 
         byte[] messageBytes = bos.toByteArray();
         bos.close();
-
-        **/
-
-        // Another way to do the same
-
-        byte[] messageBytes = messageObject.toString().getBytes();
 
         Message msg = MessageBuilder.withBody(messageBytes)
                 .setHeader("item1", "mobile")
