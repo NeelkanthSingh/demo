@@ -1,3 +1,7 @@
 # demo
-Demo tech used for future access.
-It will involve multiple diifferent practices.
+Different Tech's working sample in Springboot.
+
+Till now it has:
+  GET and POST Endpoint
+  JWT Authentication token
+  RabbitMQ implementation
