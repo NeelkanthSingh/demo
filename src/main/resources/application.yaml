@@ -1,4 +1,8 @@
 spring:
+  profiles:
+    active: local
+---
+spring:
   #Postgresql properties
   datasource:
     url: jdbc:postgresql://192.168.1.18:5432/postgres
@@ -22,3 +26,11 @@ spring:
     username: guest
     password: guest
 
+  #Kafka
+  spring:
+    profiles: local
+    kafka:
+      producer:
+        bootstrap-servers: 192.168.1.18:8097, 192.168.1.18:8098, 192.168.1.18:8099
+        key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+        value-serializer: org.apache.kafka.common.serialization.StringSerializer
