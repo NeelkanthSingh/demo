@@ -7,7 +7,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-@Component
+// This is added to show the use of LibraryEventsConsumerManuelOffset class.
+//@Component
 @Slf4j
 @RequiredArgsConstructor
 public class LibraryEventsConsumer {
