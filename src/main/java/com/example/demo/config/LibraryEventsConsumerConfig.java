@@ -19,6 +19,7 @@ public class LibraryEventsConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<Object, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
         configurer.configure(factory, kafkaConsumerFactory);
         factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
+        // factory.setConcurrency(3); // This is to spin up multiple threads to consume, use only if you are not running on cloud.
         return factory;
 
     }
