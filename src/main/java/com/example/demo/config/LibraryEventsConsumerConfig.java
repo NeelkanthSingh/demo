@@ -22,12 +22,16 @@ public class LibraryEventsConsumerConfig {
 
     public DefaultErrorHandler errorHandler() {
         var fixedBackOff = new FixedBackOff(1000L, 2);
-        var errorHandler = new DefaultErrorHandler(fixedBackOff);
 
         var expBackOff = new ExponentialBackOffWithMaxRetries(2);
         expBackOff.setInitialInterval(1000L);
         expBackOff.setMultiplier(2.0);
         expBackOff.setMaxInterval(2000L);
+
+        var errorHandler = new DefaultErrorHandler(
+//                fixedBackOff
+                expBackOff
+        );
 
         var exceptionsToIgnoreList = List.of(NullPointerException.class);
         var exceptionsToRetryList = List.of(ArithmeticException.class);
