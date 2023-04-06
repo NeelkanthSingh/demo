@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.TopicPartition;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,13 @@ public class LibraryEventsConsumerConfig {
 
     // There can Be our own recovery logic instead of using DeadLetterPublishingRecoverer through ConsumerRecordRecoverer
     public ConsumerRecordRecoverer recoverer() {
+
+        return new ConsumerRecordRecoverer() {
+            @Override
+            public void accept(ConsumerRecord<?, ?> consumerRecord, Exception e) {
+                log.info("Recoverer logic");
+            }
+        };
     }
 
     public DeadLetterPublishingRecoverer publishingRecoverer(){
