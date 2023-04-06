@@ -12,6 +12,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.listener.ConsumerRecordRecoverer;
 import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
 import org.springframework.kafka.listener.DefaultErrorHandler;
@@ -34,6 +35,10 @@ public class LibraryEventsConsumerConfig {
 
     @Value("${topics.dlt}")
     private String deadLetterTopic;
+
+    // There can Be our own recovery logic instead of using DeadLetterPublishingRecoverer through ConsumerRecordRecoverer
+    public ConsumerRecordRecoverer recoverer() {
+    }
 
     public DeadLetterPublishingRecoverer publishingRecoverer(){
 
