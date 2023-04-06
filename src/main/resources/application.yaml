@@ -1,3 +1,7 @@
+topics:
+  retry: 'library-events.RETRY'
+  dlt: 'library-events.DLT'
+
 spring:
   #Postgresql properties
   datasource:

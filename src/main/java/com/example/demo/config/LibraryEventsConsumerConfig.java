@@ -1,13 +1,19 @@
 package com.example.demo.config;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.kafka.common.TopicPartition;
+import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.RecoverableDataAccessException;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.listener.ContainerProperties;
+import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
 import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.kafka.support.ExponentialBackOffWithMaxRetries;
 import org.springframework.util.backoff.ExponentialBackOff;
@@ -18,7 +24,30 @@ import java.util.List;
 @Configuration
 @EnableKafka
 @Slf4j
+@RequiredArgsConstructor
 public class LibraryEventsConsumerConfig {
+
+    private final KafkaTemplate kafkaTemplate;
+
+    @Value("${topics.retry}")
+    private String retryTopic;
+
+    @Value("${topics.dlt}")
+    private String deadLetterTopic;
+
+    public DeadLetterPublishingRecoverer publishingRecoverer(){
+
+        DeadLetterPublishingRecoverer recoverer = new DeadLetterPublishingRecoverer(kafkaTemplate, (record, ex) -> {
+
+            if(ex.getCause() instanceof RecoverableDataAccessException) {
+                return new TopicPartition(retryTopic, record.partition());
+            } else {
+                return new TopicPartition(deadLetterTopic, record.partition());
+            }
+        });
+
+        return recoverer;
+    }
 
     public DefaultErrorHandler errorHandler() {
         var fixedBackOff = new FixedBackOff(1000L, 2);
@@ -29,6 +58,7 @@ public class LibraryEventsConsumerConfig {
         expBackOff.setMaxInterval(2000L);
 
         var errorHandler = new DefaultErrorHandler(
+                publishingRecoverer(),
 //                fixedBackOff
                 expBackOff
         );
