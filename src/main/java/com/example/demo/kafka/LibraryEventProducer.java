@@ -113,4 +113,10 @@ public class LibraryEventProducer {
             log.error("Error in OnFailure: {}", throwable);
         }
     }
+
+    // There can be some errors that happens on the kafka producer side like:
+    // 1. The broker is down
+    // 2. min.in.sync.replicas is not met
+    // So we must handle these errors.
+
 }
