@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,11 +13,19 @@ import org.springframework.util.backoff.FixedBackOff;
 
 @Configuration
 @EnableKafka
+@Slf4j
 public class LibraryEventsConsumerConfig {
 
     public DefaultErrorHandler errorHandler() {
         var fixedBackOff = new FixedBackOff(1000L, 2);
-        return new DefaultErrorHandler(fixedBackOff);
+        var errorHandler = new DefaultErrorHandler(fixedBackOff);
+
+        errorHandler
+                .setRetryListeners((record, ex, deliveryAttempt) -> {
+                    log.info("Error in consumer: {}, record: {}, deliveryAttempt: {}", ex.getMessage(), record, deliveryAttempt);
+                });
+
+        return errorHandler;
     }
 
     @Bean
