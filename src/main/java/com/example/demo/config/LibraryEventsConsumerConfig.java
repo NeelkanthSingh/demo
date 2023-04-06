@@ -11,6 +11,8 @@ import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.util.backoff.FixedBackOff;
 
+import java.util.List;
+
 @Configuration
 @EnableKafka
 @Slf4j
@@ -19,6 +21,12 @@ public class LibraryEventsConsumerConfig {
     public DefaultErrorHandler errorHandler() {
         var fixedBackOff = new FixedBackOff(1000L, 2);
         var errorHandler = new DefaultErrorHandler(fixedBackOff);
+
+        var exceptionsToIgnoreList = List.of(NullPointerException.class);
+        var exceptionsToRetryList = List.of(ArithmeticException.class);
+
+        exceptionsToRetryList.forEach(errorHandler::addRetryableExceptions);
+        exceptionsToIgnoreList.forEach(errorHandler::addNotRetryableExceptions);
 
         errorHandler
                 .setRetryListeners((record, ex, deliveryAttempt) -> {
