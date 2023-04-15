@@ -8,6 +8,7 @@ import com.example.demo.service.MongoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,4 +30,18 @@ public class MongoController {
         mongoService.insertStudent();
         return ResponseEntity.ok("Student inserted successfully");
     }
+
+    @GetMapping("/find")
+    public ResponseEntity<List<Student>> findStudent(){
+        List<Student> students = mongoService.findStudentQuery();
+        return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/find/{name}")
+    public ResponseEntity<List<Student>> findStudentByName(String name){
+        List<Student> students = mongoService.findStudentByName(name);
+        return ResponseEntity.ok(students);
+    }
+
+
 }
