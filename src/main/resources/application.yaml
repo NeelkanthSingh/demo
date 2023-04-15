@@ -1,10 +1,20 @@
 spring:
   #Postgresql properties
   datasource:
-    url: jdbc:postgresql://192.168.1.18:5432/postgres
+    url: jdbc:postgresql://192.168.1.20:5432/postgres
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+  #MongoDB properties
+  data:
+    mongodb:
+      authentication-database: admin
+      username: rootuser
+      password: rootpass
+      database: neel
+      port: 27017
+      host: 192.168.1.20
+  #JPA properties
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -17,7 +27,7 @@ spring:
 
   #RabbitMQ
   rabbitmq:
-    host: 192.168.1.18
+    host: 192.168.1.20
     port: 5672
     username: guest
     password: guest
