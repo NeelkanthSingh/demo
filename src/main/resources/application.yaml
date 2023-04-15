@@ -14,6 +14,7 @@ spring:
       database: neel
       port: 27017
       host: 192.168.1.20
+      auto-index-creation: true
   #JPA properties
   jpa:
     hibernate:
